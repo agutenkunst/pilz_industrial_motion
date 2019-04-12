@@ -155,7 +155,7 @@ TEST_F(IntegrationTestCommandListManager, concatThreeSegments)
   seq.setAllBlendRadiiToZero();
 
   RobotTrajCont res123_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res123_vec.size(), 1);
+  EXPECT_EQ(res123_vec.size(), 1u);
   EXPECT_GT(res123_vec.front()->getWayPointCount(), 0u);
   EXPECT_TRUE(hasStrictlyIncreasingTime(res123_vec.front())) << "Time steps not strictly positively increasing";
 
@@ -165,7 +165,7 @@ TEST_F(IntegrationTestCommandListManager, concatThreeSegments)
   req_1.items.at(0).req = seq.getCmd(0).toRequest();
   req_1.items.at(0).blend_radius = 0.;
   RobotTrajCont res1_vec {manager_->solve(scene_, req_1)};
-  EXPECT_EQ(res1_vec.size(), 1);
+  EXPECT_EQ(res1_vec.size(), 1u);
   EXPECT_GT(res1_vec.front()->getWayPointCount(), 0u);
   EXPECT_EQ(res1_vec.front()->getFirstWayPoint().getVariableCount(),
             req_1.items.at(0).req.start_state.joint_state.name.size());
@@ -176,7 +176,7 @@ TEST_F(IntegrationTestCommandListManager, concatThreeSegments)
   req_2.items.at(0).req = seq.getCmd(1).toRequest();
   req_2.items.at(0).blend_radius = 0.;
   RobotTrajCont res2_vec {manager_->solve(scene_, req_2)};
-  EXPECT_EQ(res2_vec.size(), 1);
+  EXPECT_EQ(res2_vec.size(), 1u);
   EXPECT_GT(res2_vec.front()->getWayPointCount(), 0u);
   EXPECT_EQ(res2_vec.front()->getFirstWayPoint().getVariableCount(),
             req_2.items.at(0).req.start_state.joint_state.name.size());
@@ -188,7 +188,7 @@ TEST_F(IntegrationTestCommandListManager, concatThreeSegments)
   req_3.items.at(0).req = seq.getCmd(2).toRequest();
   req_3.items.at(0).blend_radius = 0.;
   RobotTrajCont res3_vec {manager_->solve(scene_, req_3)};
-  EXPECT_EQ(res3_vec.size(), 1);
+  EXPECT_EQ(res3_vec.size(), 1u);
   EXPECT_GT(res3_vec.front()->getWayPointCount(), 0u);
   EXPECT_EQ(res3_vec.front()->getFirstWayPoint().getVariableCount(),
             req_3.items.at(0).req.start_state.joint_state.name.size());
@@ -220,7 +220,7 @@ TEST_F(IntegrationTestCommandListManager, concatTwoPtpSegments)
   seq.setAllBlendRadiiToZero();
 
   RobotTrajCont res_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res_vec.size(), 1);
+  EXPECT_EQ(res_vec.size(), 1u);
   EXPECT_GT(res_vec.front()->getWayPointCount(), 0u);
   EXPECT_TRUE(hasStrictlyIncreasingTime(res_vec.front()));
 }
@@ -242,7 +242,7 @@ TEST_F(IntegrationTestCommandListManager, concatPtpAndLinSegments)
   seq.setAllBlendRadiiToZero();
 
   RobotTrajCont res_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res_vec.size(), 1);
+  EXPECT_EQ(res_vec.size(), 1u);
   EXPECT_GT(res_vec.front()->getWayPointCount(), 0u);
   EXPECT_TRUE(hasStrictlyIncreasingTime(res_vec.front()));
 }
@@ -264,7 +264,7 @@ TEST_F(IntegrationTestCommandListManager, concatLinAndPtpSegments)
   seq.setAllBlendRadiiToZero();
 
   RobotTrajCont res_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res_vec.size(), 1);
+  EXPECT_EQ(res_vec.size(), 1u);
   EXPECT_GT(res_vec.front()->getWayPointCount(), 0u);
   EXPECT_TRUE(hasStrictlyIncreasingTime(res_vec.front()));
 }
@@ -284,7 +284,7 @@ TEST_F(IntegrationTestCommandListManager, blendTwoSegments)
   ASSERT_EQ(seq.size(), 2u);
   pilz_msgs::MotionSequenceRequest req {seq.toRequest()};
   RobotTrajCont res_vec {manager_->solve(scene_, req)};
-  EXPECT_EQ(res_vec.size(), 1);
+  EXPECT_EQ(res_vec.size(), 1u);
   EXPECT_GT(res_vec.front()->getWayPointCount(), 0u);
   EXPECT_EQ(res_vec.front()->getFirstWayPoint().getVariableCount(),
             req.items.at(0).req.start_state.joint_state.name.size());
@@ -433,7 +433,7 @@ TEST_F(IntegrationTestCommandListManager, blendingRadiusOverlapping)
   seq.erase(3, seq.size());
 
   RobotTrajCont res_valid_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res_valid_vec.size(), 1);
+  EXPECT_EQ(res_valid_vec.size(), 1u);
   EXPECT_GT(res_valid_vec.front()->getWayPointCount(), 0u);
 
   // calculate distance from first to second goal
@@ -467,7 +467,7 @@ TEST_F(IntegrationTestCommandListManager, TestExecutionTime)
   Sequence seq {data_loader_->getSequence("ComplexSequence")};
   ASSERT_GE(seq.size(), 2u);
   RobotTrajCont res_single_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res_single_vec.size(), 1);
+  EXPECT_EQ(res_single_vec.size(), 1u);
   EXPECT_GT(res_single_vec.front()->getWayPointCount(), 0u);
 
   pilz_msgs::MotionSequenceRequest req {seq.toRequest()};
@@ -487,7 +487,7 @@ TEST_F(IntegrationTestCommandListManager, TestExecutionTime)
   }
 
   RobotTrajCont res_n_vec {manager_->solve(scene_, req)};
-  EXPECT_EQ(res_n_vec.size(), 1);
+  EXPECT_EQ(res_n_vec.size(), 1u);
   EXPECT_GT(res_n_vec.front()->getWayPointCount(), 0u);
 
   const double trajectory_time_1 = res_single_vec.front()->getWayPointDurationFromStart(
@@ -511,7 +511,7 @@ TEST_F(IntegrationTestCommandListManager, TestExecutionTime)
 TEST_F(IntegrationTestCommandListManager, TestDifferentGroups)
 {
   Sequence seq {data_loader_->getSequence("ComplexSequenceWithGripper")};
-  ASSERT_GE(seq.size(), 1);
+  ASSERT_GE(seq.size(), 1u);
   // Count the number of group changes in the given sequence
   unsigned int num_groups {1};
   std::string last_group_name {seq.getCmd(0).getPlanningGroup()};
@@ -540,14 +540,14 @@ TEST_F(IntegrationTestCommandListManager, TestDifferentGroups)
 TEST_F(IntegrationTestCommandListManager, TestGripperCmdBlending)
 {
   Sequence seq {data_loader_->getSequence("PureGripperSequence")};
-  ASSERT_GE(seq.size(), 2);
+  ASSERT_GE(seq.size(), 2u);
   ASSERT_TRUE(seq.cmdIsOfType<Gripper>(0));
   ASSERT_TRUE(seq.cmdIsOfType<Gripper>(1));
 
   // Ensure that blending is requested for gripper commands.
   seq.setBlendRadii(0, 1.0);
   RobotTrajCont res_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_EQ(res_vec.size(), 1);
+  EXPECT_EQ(res_vec.size(), 1u);
 }
 
 /**
@@ -568,7 +568,7 @@ TEST_F(IntegrationTestCommandListManager, TestGroupSpecificStartState)
   using std::placeholders::_1;
 
   Sequence seq {data_loader_->getSequence("ComplexSequenceWithGripper")};
-  ASSERT_GE(seq.size(), 4);
+  ASSERT_GE(seq.size(), 4u);
   seq.erase(4, seq.size());
 
   Gripper& gripper {seq.getCmd<Gripper>(0)};
@@ -584,7 +584,7 @@ TEST_F(IntegrationTestCommandListManager, TestGroupSpecificStartState)
   ptp.getStartConfiguration().clearModel();
 
   RobotTrajCont res_vec {manager_->solve(scene_, seq.toRequest())};
-  EXPECT_GE(res_vec.size(), 1);
+  EXPECT_GE(res_vec.size(), 1u);
   EXPECT_GT(res_vec.front()->getWayPointCount(), 0u);
 }
 
