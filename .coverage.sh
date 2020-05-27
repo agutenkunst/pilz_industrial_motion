@@ -14,7 +14,7 @@ for pkg in $COVERAGE_PKGS; do
     ici_exec_in_workspace "$extend" "$ws" catkin build $pkg -v -j 1 --no-deps --catkin-make-args ${pkg}_coverage
 
     if [ -a $ws/build/$pkg/${pkg}_coverage.info.cleaned ]; then
-        echo "Coverage summary for $pkg ----------------------"
+        echo "Cpp-Coverage summary for $pkg ----------------------"
         lcov --summary $ws/build/$pkg/${pkg}_coverage.info.cleaned
         echo "---------------------------------------------------"
 
@@ -22,7 +22,7 @@ for pkg in $COVERAGE_PKGS; do
         required_coverage="100.0"
     else
         cd $HOME/.ros
-        echo "Coverage summary for $pkg"
+        echo "Python-Coverage summary for $pkg"
         python-coverage report --include "$ws/src/$TARGET_REPO_NAME/$pkg/*" --omit "*/$pkg/test/*"
 
         line_cov_percentage=$(python-coverage report --include "$ws/src/$TARGET_REPO_NAME/$pkg/*" --omit "*/$pkg/test/*" | grep -Poi "TOTAL.* ([0-9]*){2} \K[0-9]*")
