@@ -10,7 +10,8 @@ for pkg in $COVERAGE_PKGS; do
     echo "Creating coverage for [$pkg]"
     ws=~/target_ws
     extend="/opt/ros/$ROS_DISTRO"
-    ici_exec_in_workspace "$extend" "$ws" catkin build $pkg -v --no-deps --catkin-make-args ${pkg}_coverage
+    ici_exec_in_workspace "$extend" "$ws" catkin build $pkg -v --no-deps --catkin-make-args tests
+    ici_exec_in_workspace "$extend" "$ws" catkin build $pkg -v -j 1 --no-deps --catkin-make-args ${pkg}_coverage
 
     if [ -a $ws/build/$pkg/${pkg}_coverage.info.cleaned ]; then
         echo "Coverage summary for $pkg ----------------------"
