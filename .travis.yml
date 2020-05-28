@@ -38,7 +38,7 @@ env:
       AFTER_SCRIPT="source /root/ici/industrial_ci_addons/check_coverage.sh && check_coverage pilz_trajectory_generation"
       CMAKE_ARGS="-DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug"
     - ROS_REPO="testing"
-      ROS_PARALLEL_TEST_JOBS="-j1"
+      PARALLEL_TESTS=false
       CATKIN_LINT=false NOT_TEST_BUILD=true
       AFTER_SCRIPT="source /root/ici/industrial_ci_addons/check_coverage.sh && check_coverage pilz_store_positions"
       CMAKE_ARGS="-DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug"
