@@ -47,6 +47,6 @@ matrix:
     - env: ROS_REPO=main
 install:
   - git clone --depth=1 --branch master https://github.com/ros-industrial/industrial_ci.git .industrial_ci
-  - git clone --depth=1 --branch master https://github.com/PilzDE/industrial_ci_addons.git .industrial_ci/industrial_ci/src/industrial_ci_addons
+  - git clone --depth=1 --branch serial_tests https://github.com/PilzDE/industrial_ci_addons.git .industrial_ci/industrial_ci/src/industrial_ci_addons
 script:
   - .industrial_ci/travis.sh
